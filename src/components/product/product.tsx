@@ -17,7 +17,7 @@ const Product = ({
 
     return (
         <main className="bg-white h-screen">
-            <nav className="px-5 pb-2 flex flex-col h-[60px] bg-white  justify-center w-full fixed top-0 left-0 z-10">
+            <nav className="px-5 pb-2 flex flex-col h-[60px] bg-white  justify-center  z-10">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-3 items-center">
                         <BackButton onRouteBack={handleRouteBack} />
@@ -28,7 +28,7 @@ const Product = ({
             </nav>
 
 
-            <div className="h-full pt-[60px] overflow-y-auto">
+            <div className="h-full  overflow-y-auto">
                 {children}
             </div>
         </main>

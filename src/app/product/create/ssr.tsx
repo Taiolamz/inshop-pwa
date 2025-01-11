@@ -277,7 +277,7 @@ export const TopHeaderNav = ({
     isOpen: boolean;
     onToggle: () => void;
 }) => (
-    <div className="flex justify-between items-center mb-4">
+    <div className="flex justify-between cursor-pointer items-center mb-4">
         <p className="text-sm text-black font-medium">{title}</p>
         <Image
             src={icons.chevronDownIcon}

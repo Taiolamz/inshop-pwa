@@ -2,9 +2,6 @@ import Input from '@/src/components/common/input';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 
-interface PhoneOrEmailStepSSGProps {
-  uiState: string | null;
-}
 
 const BasicInfoSSG = () => {
   const [emailOrPhone, setEmailOrPhone] = useState('');
@@ -15,13 +12,6 @@ const BasicInfoSSG = () => {
     setError(false);
   };
 
-  const handleSubmit = () => {
-    if (!emailOrPhone) {
-      setError(true);
-    } else {
-      console.log('Form submitted');
-    }
-  };
 
   return (
     <div className='flex flex-col gap-5'>
@@ -67,10 +57,10 @@ const BasicInfoSSG = () => {
 
 // SSG: Fetch data at build time
 export const getStaticProps: GetStaticProps = async () => {
-  const uiState = 'phone-or-email';  
+  const uiState = 'phone-or-email';
   return {
-    props: { uiState },  
-    revalidate: 60, 
+    props: { uiState },
+    revalidate: 60,
   };
 };
 

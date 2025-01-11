@@ -18,7 +18,6 @@ const Input: React.FC<InputProps> = ({
     onChange,
     placeholder = '',
     type = 'text',
-    label,
     name,
     id,
     className = '',

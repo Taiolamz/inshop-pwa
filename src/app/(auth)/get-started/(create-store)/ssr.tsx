@@ -17,12 +17,12 @@ const CreateStoreSSR = () => {
 
     const [image, setImage] = useState<File | null>(null); // State to store uploaded file
     const [imagePreview, setImagePreview] = useState<string | null>(null); // State to store image preview
-
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-
+        
         if (file) {
             setImage(file);
+            console.log(image)
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result as string);
@@ -30,6 +30,8 @@ const CreateStoreSSR = () => {
             reader.readAsDataURL(file);
         }
     };
+
+  
 
 
     return (
