@@ -1,32 +1,28 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Registration from '@/src/components/auth/register';
+import useQueryParam from '@/src/hooks/useURLSearchParams';
 
+// Dynamically import components with SSR
 const PhoneOrEmailSSR = dynamic(() => import('./(phone-or-email)/ssr'), { ssr: true });
 const BasicInfoSSR = dynamic(() => import('./(basic-info)/ssr'), { ssr: true });
 const CreateStoreSSR = dynamic(() => import('./(create-store)/ssr'), { ssr: true });
 
 const PhoneOrEmailStep = () => {
+  
   const router = useRouter();
+  const ui = useQueryParam('ui');
+
+  
+
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
 
-  // Function to get query parameter by name
-  const getQueryParam = (name: string): string | null => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name);
-    }
-    return null;
-  };
-
-  const ui = getQueryParam('ui');
-
   const handleNextStep = () => {
-    if (currentStep < 3) {
+    if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       router.push(`/get-started?ui=${getNextUIState(currentStep + 1)}`);
     } else {
@@ -76,27 +72,25 @@ const PhoneOrEmailStep = () => {
     }
   };
 
-  const { headerText, subText } = topHeaderText(ui || '');
+  const { headerText, subText } = topHeaderText(ui!);
 
   if (!ui) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Registration
-        onRouteBack={handlePreviousStep}
-        currentStep={currentStep}
-        totalSteps={totalSteps}
-        onClick={handleNextStep}
-        headerText={headerText}
-        subText={subText}
-      >
-        {ui === 'phone-or-email' && <PhoneOrEmailSSR />}
-        {ui === 'basic-info' && <BasicInfoSSR />}
-        {ui === 'create-your-store' && <CreateStoreSSR />}
-      </Registration>
-    </Suspense>
+    <Registration
+      onRouteBack={handlePreviousStep}
+      currentStep={currentStep}
+      totalSteps={totalSteps}
+      onClick={handleNextStep}
+      headerText={headerText}
+      subText={subText}
+    >
+      {ui === 'phone-or-email' && <PhoneOrEmailSSR />}
+      {ui === 'basic-info' && <BasicInfoSSR />}
+      {ui === 'create-your-store' && <CreateStoreSSR />}
+    </Registration>
   );
 };
 
