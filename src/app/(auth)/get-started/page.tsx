@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 import BasicInfoStepSSG from './(basic-info)/ssg';
-import Registration from '../../../components/auth/register';
+import Registration from '@/src/components/auth/register';
 
 const PhoneOrEmailSSR = dynamic(() => import('./(phone-or-email)/ssr'), { ssr: true });
 const BasicInfoSSR = dynamic(() => import('./(basic-info)/ssr'), { ssr: true })
@@ -36,7 +36,7 @@ const PhoneOrEmailStep = () => {
       setCurrentStep(currentStep + 1);
       router.push(`/get-started?ui=${getNextUIState(currentStep + 1)}`);
     } else {
-      router.push(`/dashboard/product/create`);
+      router.push(`/product/create`);
     }
   };
 

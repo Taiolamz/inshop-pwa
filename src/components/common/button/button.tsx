@@ -1,6 +1,6 @@
 import { cn } from '@/src/utils/cn';
 import { FC, ButtonHTMLAttributes, ReactNode } from 'react';
-// import classNames from 'classnames';
+
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'danger' | 'outline';
@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: FC<ButtonProps> = ({
     variant = 'primary',
-    size = 'medium',
+    size = 'small',
     isLoading = false,
     children,
     className,
@@ -27,7 +27,7 @@ const Button: FC<ButtonProps> = ({
             'border border-primary text-primary hover:bg-gray-100 focus:ring-gray-200': variant === 'outline',
 
             // Sizes
-            'px-3 py-1 text-sm': size === 'small',
+            'px-4 py-2 text-sm': size === 'small',
             'px-4 py-2 text-base': size === 'medium',
             'px-5 py-3 text-lg': size === 'large',
         },

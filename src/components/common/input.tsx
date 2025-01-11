@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({
                 type={type}
                 name={name}
                 id={id}
-                className={cn('rounded-[12px] placeholder:text-sm placeholder:text-gray-500 w-full outline-none border p-3 ', className, { 'text-danger-500': error })}
+                className={cn('rounded-[12px] placeholder:text-sm placeholder:text-gray-500 w-full outline-none border p-4 ', className, { 'text-danger-500': error })}
             />
         </div>
     );

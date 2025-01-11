@@ -17,7 +17,7 @@ const InteractiveButton: React.FC<InteractiveButtonProps> = ({
     onClick,
     isLoading = false,
     variant = 'primary',
-    size = 'medium',
+    size = 'small',
     children,
     className,
     href

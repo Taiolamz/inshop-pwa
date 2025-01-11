@@ -1,10 +1,7 @@
-import React from "react";
-
+import * as yup from "yup";
 const useProduct = () => {
     
-  return {
-
-  }
+  return {};
 };
 
 export default useProduct;
