@@ -1,22 +1,36 @@
+'use client'
 import { useState, useEffect } from 'react';
 
-/**
- * Custom hook to retrieve a query parameter by name from the URL.
- * @param paramName - The name of the query parameter to retrieve.
- * @returns The value of the query parameter, or null if not found.
- */
-function useQueryParam(paramName: string): string | null {
-  const [paramValue, setParamValue] = useState<string | null>(null);
+const useQueryParams = () => {
+  const [queryParams, setQueryParams] = useState<URLSearchParams>(new URLSearchParams(window.location.search));
 
   useEffect(() => {
-    // Ensure the code runs only in the browser
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      setParamValue(urlParams.get(paramName));
-    }
-  }, [paramName]);
+    // Set up a listener for changes in the URL
+    const handlePopState = () => {
+      setQueryParams(new URLSearchParams(window.location.search));
+    };
 
-  return paramValue;
-}
+    window.addEventListener('popstate', handlePopState);
 
-export default useQueryParam;
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  const updateQueryParams = (params: { [key: string]: string }) => {
+    const newUrl = new URL(window.location.href);
+    const searchParams = new URLSearchParams(newUrl.search);
+
+    Object.entries(params).forEach(([key, value]) => {
+      searchParams.set(key, value);
+    });
+
+    newUrl.search = searchParams.toString();
+    window.history.pushState({}, '', newUrl.toString());
+    setQueryParams(searchParams);
+  };
+
+  return { queryParams, updateQueryParams };
+};
+
+export default useQueryParams;
